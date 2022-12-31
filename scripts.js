@@ -1,15 +1,26 @@
-const await = (ms = 0) => {
+const wait = (ms = 0) => {
   return new Promise((resolve) => {
     setTimeout(resolve, ms);
   })
 }
 
-const getRandomValueBetween = (min = 10, max = 100, randomNumber = Math.random) => {
+const getRandomValueBetween = (min = 30, max = 150, randomNumber = Math.random()) => {
   return Math.floor(randomNumber * (max - min) + min);
 }
 
-function draw(element) {
-  console.log(element);
+type = async (el) => {
+  const text = el.textContent;
+  let autoTypedString = '';
+
+  for (const letter of text) {
+    autoTypedString += letter;
+    el.textContent = autoTypedString;
+
+    const { typeMin, typeMax } = el.dataset;
+    await wait(getRandomValueBetween(typeMin, typeMax));
+  }
 }
 
-const els = document.querySelectorAll('[data-type]').forEach(draw);
+
+
+const els = document.querySelectorAll('[data-type]').forEach(type);
